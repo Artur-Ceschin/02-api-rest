@@ -5,10 +5,6 @@ import { z } from 'zod'
 import { checkSessionIdExists } from '../middlewares/check-sessionId-exists'
 
 export async function transactionsRoutes(app: FastifyInstance) {
-  app.addHook('preHandler', async () => {
-    console.log(`HELLO WORLD`)
-  })
-
   app.get('/', { preHandler: [checkSessionIdExists] }, async (request) => {
     const { sessionId } = request.cookies
 
@@ -30,12 +26,12 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     const { sessionId } = request.cookies
 
-    const transactions = await knex('transactions')
+    const transaction = await knex('transactions')
       .where({ id, session_id: sessionId })
       .first()
 
     return {
-      transactions,
+      transaction,
     }
   })
 
@@ -52,7 +48,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
         })
         .first()
 
-      return summary
+      return { summary }
     },
   )
 
