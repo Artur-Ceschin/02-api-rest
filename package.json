@@ -11,6 +11,7 @@
     "knex": "node --no-warnings --import tsx ./node_modules/.bin/knex",
     "lint": "eslint src --ext .ts --fix",
     "build": "tsup src --out-dir build",
+    "commit": "npx git-cz",
     "test": "vitest"
   },
   "keywords": [],
